@@ -1,0 +1,20 @@
+{
+  "name": "npm-ts",
+  "version": "1.0.0",
+  "description": "# Requirements * ... * ... * ...",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "test": "test",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "mocha": "^10.4.0"
+  },
+  "author": "Jesus Ponce",
+  "license": "MIT"
+}
