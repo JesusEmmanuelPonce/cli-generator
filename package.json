@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && tsc-alias && node dist/copyFiles.js",
+    "start": "node dist/index.js"
   },
   "type": "module",
   "bin": {
@@ -17,5 +19,14 @@
     "ejs": "^3.1.10",
     "inquirer": "^9.2.23",
     "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.14.9",
+    "@types/shelljs": "^0.8.15",
+    "fs-extra": "^11.2.0",
+    "tsc-alias": "^1.8.10"
   }
 }
