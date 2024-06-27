@@ -7,6 +7,9 @@ import inquirer from 'inquirer'
 import shell from 'shelljs'
 import chalk from 'chalk'
 
+import { render } from './utils/templates'
+
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const TEMPLATE_OPTIONS = fs.readdirSync(path.join(__dirname, 'templates'))
@@ -22,7 +25,7 @@ const QUESTIONS = [
         name: 'name-project',
         type: 'input',
         message: 'Nombre del proyecto',
-        validate: function(input){
+        validate: function(input: string){
             if(!/^([a-z@]{1})+$/.test(input)){
                 return 'El nombre debe inicar con minusculas o no debe de contener mayusculas'
             }
@@ -47,7 +50,7 @@ inquirer.prompt(QUESTIONS).then(answer => {
     createDirectoryContent(templatePath, nameProject)
 })
 
-function createProject(projectPath) {
+function createProject(projectPath: string) {
     if(fs.existsSync(projectPath)){
         console.log(chalk.red('Ya existe un directorio con el mismo nombre'))
         return false
@@ -57,7 +60,7 @@ function createProject(projectPath) {
     return true
 }
 
-function createDirectoryContent(templatePath, nameProject){
+function createDirectoryContent(templatePath: string, projectName: string){
     const listFileDirectories = fs.readdirSync(templatePath)
 
     listFileDirectories.forEach(item => {
@@ -65,15 +68,16 @@ function createDirectoryContent(templatePath, nameProject){
 
         const stats = fs.statSync(originalPath)
 
-        const writePath = path.join(CURRENT_DIR, nameProject, item)
+        const writePath = path.join(CURRENT_DIR, projectName, item)
 
         if(stats.isFile()){
             let contents = fs.readFileSync(originalPath, 'utf-8')
+            contents = render(contents, { projectName })
             fs.writeFileSync(writePath, contents, 'utf-8')
 
         } else if(stats.isDirectory()){
             fs.mkdirSync(writePath)
-            createDirectoryContent(path.join(templatePath, item), path.join(nameProject, item))
+            createDirectoryContent(path.join(templatePath, item), path.join(projectName, item))
         }
     })
 }
