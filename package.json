@@ -1,5 +1,5 @@
 {
-  "name": "cli-generator",
+  "name": "cli-generator-jepb",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "type": "module",
   "bin": {
-    "npm-cli-creator": "./index.js"
+    "cli-generator-jepb": "./index.js"
   },
   "author": "Jesus Ponce",
   "license": "MIT",
